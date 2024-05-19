@@ -43,7 +43,8 @@ router.get("/access_token", (req, res) => {
 });
 
 //MPESA STK PUSH ROUTE
-router.get("/stkpush", (req, res) => {
+router.post("/stkpush", (req, res) => {
+    const { phoneNumber } = req.body;
     getAccessToken()
     .then((accessToken) => {
         const url =
@@ -65,9 +66,9 @@ router.get("/stkpush", (req, res) => {
             Timestamp: timestamp,
             TransactionType: "CustomerPayBillOnline",
             Amount: "1",
-            PartyA: "254798436255",
+            PartyA: `${phoneNumber}`,
             PartyB: "174379",
-            PhoneNumber: "254798436255",
+            PhoneNumber: `${phoneNumber}`,
             CallBackURL: "https://dd3d-105-160-22-207.ngrok-free.app/callback",
             AccountReference: "Skies E-Commerce",
             TransactionDesc: "Skies E-Commerce",
