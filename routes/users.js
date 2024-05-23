@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 
 // get all users
- router.get('/users', async (req, res) => {
+ router.get('/', async (req, res) => {
     try {
         const users = await User.getAllUsers();
         res.json(users);
@@ -15,7 +15,7 @@ const bcrypt = require('bcrypt');
     
  });
  // get user by id
- router.get('/users/:id', async (req, res) => {
+ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const user = await User.getUserById(id);
@@ -25,7 +25,7 @@ const bcrypt = require('bcrypt');
     }
  });
  // get user by email
- router.get('/users/email/:email', async (req, res) => {
+ router.get('/email/:email', async (req, res) => {
     const { email } = req.params;
     try {
         const user = await User.getUserByEmail(email);
@@ -35,7 +35,7 @@ const bcrypt = require('bcrypt');
     }
  });
  //update user by id
- router.put('/users/:id', async (req, res) => {
+ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,7 +47,7 @@ const bcrypt = require('bcrypt');
     }
  });
  // delete user by id
- router.delete('/users/:id', async (req, res) => {
+ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const user = await User.deleteUser(id);
@@ -58,7 +58,7 @@ const bcrypt = require('bcrypt');
  })
 
  // add user with the hashed password
- router.post( '/users', async (req, res) => {
+ router.post('/', async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
@@ -69,3 +69,5 @@ const bcrypt = require('bcrypt');
     }
  
  })
+
+module.exports = router;
